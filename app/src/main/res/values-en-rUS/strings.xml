@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yamba</string>
+    <string name="title_status">Status update</string>
+    <string name="button_tweet">Tweet</string>
+    <string name="hint_status">Please, enter your status in 240 characters</string>
+</resources>
