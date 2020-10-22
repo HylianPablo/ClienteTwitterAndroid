@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonTweet.setOnClickListener(this);
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setOAuthConsumerKey("OxvoeCK1YDgO4u7nxlHrnoAQD")
-                .setOAuthConsumerSecret("SF0tpacg1SzS54BdzyPPwD3Fq6XTalRgp1HiQcGt6oTQLszTnw")
-                .setOAuthAccessToken("1126862183974014976-m3cYCZ2VRUO6AvGE64XL0hD8wDIVrp")
-                .setOAuthAccessTokenSecret("mliCoo0HHBOv7E060EdIe0APBh3tvYcBIRYMveebEcgjR");
+        builder.setOAuthConsumerKey("KEY")
+                .setOAuthConsumerSecret("KEY")
+                .setOAuthAccessToken("KEY")
+                .setOAuthAccessTokenSecret("KEY");
         TwitterFactory factory = new TwitterFactory(builder.build());
         twitter = factory.getInstance();
 
