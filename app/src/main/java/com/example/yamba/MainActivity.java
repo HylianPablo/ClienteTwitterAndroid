@@ -40,12 +40,12 @@ public class MainActivity extends AppCompatActivity{
         if (savedInstanceState == null) {
             // Crear un fragment
             StatusFragment fragment = new StatusFragment();
-
             // Crear una instacia del FragmentManager y realizar la transacción
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction()
                     .add(android.R.id.content, fragment, fragment.getClass().getSimpleName())
                     .commit();
+
         }
 
 
