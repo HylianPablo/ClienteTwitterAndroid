@@ -1,12 +1,16 @@
 package com.example.yamba;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,14 +90,6 @@ public class StatusFragment extends Fragment implements View.OnClickListener, Te
         buttonTweet = (Button) vista.findViewById(R.id.buttonTweet);
         buttonTweet.setOnClickListener(this);
 
-        ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setOAuthConsumerKey("OxvoeCK1YDgO4u7nxlHrnoAQD")
-                .setOAuthConsumerSecret("SF0tpacg1SzS54BdzyPPwD3Fq6XTalRgp1HiQcGt6oTQLszTnw")
-                .setOAuthAccessToken("1126862183974014976-m3cYCZ2VRUO6AvGE64XL0hD8wDIVrp")
-                .setOAuthAccessTokenSecret("mliCoo0HHBOv7E060EdIe0APBh3tvYcBIRYMveebEcgjR");
-        TwitterFactory factory = new TwitterFactory(builder.build());
-        twitter = factory.getInstance();
-
         textCount = (TextView) vista.findViewById(R.id.textCount);
         textCount.setText(Integer.toString(280));
         textCount.setTextColor(Color.GREEN);
@@ -138,6 +134,30 @@ public class StatusFragment extends Fragment implements View.OnClickListener, Te
 
         @Override
         protected String doInBackground(String... strings) {
+            SharedPreferences prefs;
+            prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+            String accesstoken = prefs.getString("accesstoken", "");
+            String accesstokensecret = prefs.getString("accesstokensecret", "");
+
+            // Comprobar si el nombre de usuario o el password están vacíos.
+            // Si lo están, indicarlo en el SnackBar y redirigir al usuario a Settings
+            if (TextUtils.isEmpty(accesstoken) || TextUtils.isEmpty(accesstokensecret)) {
+                getActivity().startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return "Por favor, actualiza tu nombre de usuario y tu contraseña";
+            }
+
+            Log.d( TAG, "AccessToken read: " + accesstoken );
+            Log.d( TAG, "AccessTokenSecret read: " + accesstokensecret );
+
+            // Inicialización
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.setOAuthConsumerKey("OxvoeCK1YDgO4u7nxlHrnoAQD")
+                    .setOAuthConsumerSecret("SF0tpacg1SzS54BdzyPPwD3Fq6XTalRgp1HiQcGt6oTQLszTnw")
+                    .setOAuthAccessToken(accesstoken)
+                    .setOAuthAccessTokenSecret(accesstokensecret);
+            TwitterFactory factory = new TwitterFactory(builder.build());
+            twitter = factory.getInstance();
             try {
                 twitter.updateStatus(strings[0]);
                 return "Tweet enviado correctamente";

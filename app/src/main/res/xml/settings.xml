@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/preferences_section_1">
+
+        <EditTextPreference
+            android:key="accesstoken"
+            android:icon="@drawable/baseline_account_box_black_18dp"
+            android:summary="@string/summaryAccessToken"
+            android:title="@string/titleAccessToken" />
+
+        <EditTextPreference
+            android:key="accesstokensecret"
+            android:icon="@drawable/baseline_vpn_key_black_18dp"
+            android:summary="@string/summaryAccessTokenSecret"
+            android:title="@string/titleAccessTokenSecret" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/preferences_section_2">
+
+        <CheckBoxPreference
+            android:key="checkbox_preference"
+            android:title="@string/title_checkbox_preference" />
+
+        <SwitchPreference
+            android:key="switch_preference"
+            android:title="@string/title_switch_preference" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
