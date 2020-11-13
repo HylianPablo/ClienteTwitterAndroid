@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity{
             case R.id.action_tweet:
                 startActivity(new Intent(this, StatusActivity.class));
                 return true;
+            case R.id.itemServiceStart:
+                Intent refreshIntent = new Intent(this, RefreshService.class);
+                refreshIntent.setAction(RefreshService.ACTION_FETCH_TIMELINE);
+                startService(refreshIntent);
+                return true;
+            case R.id.itemServiceStop:
+                stopService(new Intent(this, RefreshService.class));
+                return true;
             default:
                 return false;
         }

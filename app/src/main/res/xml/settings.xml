@@ -7,13 +7,15 @@
             android:key="accesstoken"
             android:icon="@drawable/baseline_account_box_black_18dp"
             android:summary="@string/summaryAccessToken"
-            android:title="@string/titleAccessToken" />
+            android:title="@string/titleAccessToken"
+            android:defaultValue="1126862183974014976-243ApY4dYRne1PFuCu7nDZDBnB4pMP"/>
 
         <EditTextPreference
             android:key="accesstokensecret"
             android:icon="@drawable/baseline_vpn_key_black_18dp"
             android:summary="@string/summaryAccessTokenSecret"
-            android:title="@string/titleAccessTokenSecret" />
+            android:title="@string/titleAccessTokenSecret"
+            android:defaultValue="YUkqxGnJjgFqEfM8gR0t02GAMjjAKoK2AniqlEENGwoJI"/>
 
     </PreferenceCategory>
 
