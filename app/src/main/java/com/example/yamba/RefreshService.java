@@ -1,9 +1,12 @@
 package com.example.yamba;
 
 import android.app.IntentService;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.List;
@@ -33,6 +36,9 @@ public class RefreshService extends IntentService {
     static final int DELAY = 30000; // medio minuto
     private boolean runFlag = false;
 
+    DbHelper dbhelper;
+    SQLiteDatabase db;
+
     public RefreshService() {
         super("RefreshService");
     }
@@ -41,6 +47,8 @@ public class RefreshService extends IntentService {
     public void onCreate() {
         super.onCreate();
         Log.d( TAG, "onCreated" );
+
+        dbhelper = new DbHelper(this);
     }
 
     @Override
@@ -72,8 +80,6 @@ public class RefreshService extends IntentService {
         String accesstoken = prefs.getString("accesstoken", "1126862183974014976-243ApY4dYRne1PFuCu7nDZDBnB4pMP");
         String accesstokensecret = prefs.getString("accesstokensecret", "YUkqxGnJjgFqEfM8gR0t02GAMjjAKoK2AniqlEENGwoJI");
 
-        System.out.println("HOLAAAAAAAAAAAAAAAAA"+accesstoken);
-
 
         while (runFlag) {
             Log.d(TAG, "Updater running");
@@ -89,11 +95,24 @@ public class RefreshService extends IntentService {
                 try {
                     List<Status> timeline = twitter.getUserTimeline();
 
+                    //db = dbhelper.getWritableDatabase(); //Modified con ContentProvider part
+                    ContentValues values = new ContentValues();
+
                     // Imprimimos las actualizaciones en el log
                     for (Status status : timeline) {
                         Log.d(TAG, String.format("%s: %s", status.getUser().getName(),
                                 status.getText()));
+                        // Insertar en la base de datos
+                        values.clear();
+                        values.put(StatusContract.Column.ID, status.getId());
+                        values.put(StatusContract.Column.USER, status.getUser().getName());
+                        values.put(StatusContract.Column.MESSAGE, status.getText());
+                        values.put(StatusContract.Column.CREATED_AT, status.getCreatedAt().getTime());
+                        //db.insertWithOnConflict(StatusContract.TABLE, null, //Modified con ContentProvider part
+                        //        values, SQLiteDatabase.CONFLICT_IGNORE);
+                        Uri uri = getContentResolver().insert(StatusContract.CONTENT_URI, values);
                     }
+                    //db.close(); //Modified con ContentProvider part
                 }
                 catch (TwitterException e) {
                     Log.e(TAG, "Failed to fetch the timeline", e);
