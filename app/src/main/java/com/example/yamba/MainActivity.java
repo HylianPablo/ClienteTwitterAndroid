@@ -47,15 +47,4 @@ public class MainActivity extends AppCompatActivity{
                 return false;
         }
     }
-
-    /*
-    PARTE CLAVES TWITTER ELIMINADA
-    ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setOAuthConsumerKey("OxvoeCK1YDgO4u7nxlHrnoAQD")
-                .setOAuthConsumerSecret("SF0tpacg1SzS54BdzyPPwD3Fq6XTalRgp1HiQcGt6oTQLszTnw")
-                .setOAuthAccessToken("1126862183974014976-m3cYCZ2VRUO6AvGE64XL0hD8wDIVrp")
-                .setOAuthAccessTokenSecret("mliCoo0HHBOv7E060EdIe0APBh3tvYcBIRYMveebEcgjR");
-        TwitterFactory factory = new TwitterFactory(builder.build());
-        twitter = factory.getInstance();
-     */
 }
