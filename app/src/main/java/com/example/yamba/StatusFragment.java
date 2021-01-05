@@ -152,8 +152,8 @@ public class StatusFragment extends Fragment implements View.OnClickListener, Te
 
             // Inicialización
             ConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.setOAuthConsumerKey("OxvoeCK1YDgO4u7nxlHrnoAQD")
-                    .setOAuthConsumerSecret("SF0tpacg1SzS54BdzyPPwD3Fq6XTalRgp1HiQcGt6oTQLszTnw")
+            builder.setOAuthConsumerKey("")
+                    .setOAuthConsumerSecret("")
                     .setOAuthAccessToken(accesstoken)
                     .setOAuthAccessTokenSecret(accesstokensecret);
             TwitterFactory factory = new TwitterFactory(builder.build());
